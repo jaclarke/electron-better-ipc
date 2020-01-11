@@ -57,4 +57,18 @@ ipc.answerMain = (channel, callback) => {
 	};
 };
 
+ipc.listenBroadcast = (channel, callback) => {
+	const broadcastChannel = `%better-ipc-broadcast-channel-${channel}`
+
+	const listener = (event, data) => {
+		callback(data)
+	}
+
+	ipc.on(broadcastChannel, listener)
+
+	return () => {
+		ipc.off(broadcastChannel, listener)
+	}
+}
+
 module.exports = ipc;

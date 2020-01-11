@@ -82,7 +82,7 @@ ipc.answerRenderer = (channel, callback) => {
 ipc.sendToRenderers = (channel, data) => {
 	for (const browserWindow of BrowserWindow.getAllWindows()) {
 		if (browserWindow.webContents) {
-			browserWindow.webContents.send(channel, data);
+			browserWindow.webContents.send(`%better-ipc-broadcast-channel-${channel}`, data);
 		}
 	}
 };
